@@ -2,7 +2,8 @@
   const config = require('../config.json')
   document.getElementById('server').value = config.server
   document.getElementById('private').value = config.privateChannel
-  document.getElementById('public').value = config.publicChannel
+  document.getElementById('regular').value = config.regularChannel
+  document.getElementById('bae').value = config.baeChannel
   document.getElementById('bot').value = config.botToken
   document.getElementById('quantityCart').value = config.quantityCart
   document.getElementById('cooldown').value = config.cooldown
@@ -22,7 +23,8 @@ function stop() {
   ipcRenderer.send('stop');
   document.getElementById('server').disabled = false;
   document.getElementById('private').disabled = false;
-  document.getElementById('public').disabled = false;
+  document.getElementById('regular').disabled = false;
+  document.getElementById('bae').disabled = false;
   document.getElementById('bot').disabled = false;
   document.getElementById('quantityCart').disabled = false;
   document.getElementById('cooldown').disabled = true;
@@ -78,13 +80,14 @@ ipcRenderer.on('wrongVersion',function (wrongVersion,updates) {
 function save() {
   const server = document.querySelector('#server').value;
   const private = document.querySelector('#private').value;
-  const public = document.querySelector('#public').value;
+  const regular = document.querySelector('#regular').value;
+  const bae = document.querySelector('#bae').value;
   const bot = document.querySelector('#bot').value;
   const quantityCart = document.getElementById('quantityCart').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
   const after10 = document.getElementById('after10').checked
   const cooldown = document.getElementById('cooldown').value
-  config = `{"server":"${server}","privateChannel":"${private}","publicChannel":"${public}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`
+  config = `{"server":"${server}","privateChannel":"${private}","regularChannel":"${regular}","baeChannel":"${bae}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -93,7 +96,8 @@ function start() {
   //save()
   document.getElementById('server').disabled = true
   document.getElementById('private').disabled = true
-  document.getElementById('public').disabled = true
+  document.getElementById('regular').disabled = true
+  document.getElementById('bae').disabled = true
   document.getElementById('bot').disabled = true
   document.getElementById('quantityCart').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
