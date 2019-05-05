@@ -94,7 +94,9 @@ ipcMain.on('start', function (start) {
     /* This is a hidden channel, normal members should not be able to see this */
     let privateChannel = config.privateChannel;
     /* This is a public channel, 'everyone' should be able to see this */
-    let publicChannel = config.publicChannel;
+    let regularChannel = config.regularChannel;
+    /* This is bae channel */
+    let baeChannel = config.baeChannel;
     /* Bot login token */
     let botToken = config.botToken;
     //check if user wants one cart per person;
