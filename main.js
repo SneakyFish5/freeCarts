@@ -354,7 +354,7 @@ ipcMain.on('start', function (start) {
                     }
                 })
             }
-            if (message.channel.id == publicChannel) {
+            if (message.channel.id == regularChannel || message.channel.id == baeChannel) {
                 message.react('🛒')
             }
     }catch(err){
@@ -364,8 +364,8 @@ ipcMain.on('start', function (start) {
 
     function sendCarts() {
         if (carts.length > 0) {
-            console.log('Posting cart to public channel...')
-            guild.channels.get(publicChannel).send(
+            console.log('Posting cart to regular channel...')
+            guild.channels.get(regularChannel).send(
                 carts.shift()
             );
 
@@ -409,7 +409,7 @@ ipcMain.on('start', function (start) {
 
 
             /* console.log(reaction.message.id); */
-            if (reaction.message.channel.id == publicChannel) {
+            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel) {
                 //console.log('Reaction added; current count:', reaction.count);
                 if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
