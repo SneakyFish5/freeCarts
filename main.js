@@ -98,7 +98,7 @@ ipcMain.on('start', function (start) {
     let regularChannel = config.regularChannel;
     /* This is bae channel */
     //let baeChannel = config.baeChannel;
-    let baeChannel = 574732914814746634
+    let baeChannel = "574732914814746634";
     /* Bot login token */
     let botToken = config.botToken;
     //check if user wants one cart per person;
