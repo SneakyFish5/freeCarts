@@ -220,6 +220,7 @@ ipcMain.on('start', function (start) {
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
                             
+                            Number(size);
                             if (size < 6.5) {
                               baeCarts.push({
                                 embed
