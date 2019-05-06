@@ -85,7 +85,8 @@ ipcMain.on('start', function (start) {
     let cartNum = 0;
     let redeemedTotal = [];
     let liveTotal = 0;
-    let carts = [];
+    let regularCarts = [];
+    let baeCarts = [];
 
     let cartsStore = [];
 
@@ -150,9 +151,15 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -177,9 +184,15 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             console.log(carts);
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);
@@ -205,9 +218,16 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-                            carts.push({
+                            
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -232,9 +252,15 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -262,9 +288,15 @@ ipcMain.on('start', function (start) {
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
 
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -292,9 +324,15 @@ ipcMain.on('start', function (start) {
                                     .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                     .setThumbnail(img);
         
-                                carts.push({
-                                    embed
-                                });
+                                if (size < 6.5) {
+                              baeCarts.push({
+                                embed
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                                 liveTotal = cartNum - redeemedTotal.length;
                                 mainWindow.webContents.send('liveTotal', liveTotal);
                                 mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -319,9 +357,15 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            });
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
                             writeCart(cartNum, email, pass, loginURL, img, size, sku)
                         } else if (e.footer.text === 'Gen5 Adidas') {
                             size = (e.fields)[1]['value'];
@@ -340,9 +384,15 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
 
-                            carts.push({
+                            if (size < 6.5) {
+                              baeCarts.push({
                                 embed
-                            })
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
 
                             liveTotal = cartNum - redeemedTotal.length
                             mainWindow.webContents.send('liveTotal', liveTotal);
@@ -363,10 +413,16 @@ ipcMain.on('start', function (start) {
     })
 
     function sendCarts() {
-        if (carts.length > 0) {
+        if (regularCarts.length > 0) {
             console.log('Posting cart to regular channel...')
             guild.channels.get(regularChannel).send(
-                carts.shift()
+                regularCarts.shift()
+            );
+
+        } else if (baeCarts.length > 0) {
+            console.log('Posting cart to bae channel...')
+            guild.channels.get(baeChannel).send(
+                baeCarts.shift()
             );
 
         }
