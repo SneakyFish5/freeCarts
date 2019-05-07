@@ -88,6 +88,7 @@ ipcMain.on('start', function (start) {
     let liveTotal = 0;
     let regularCarts = [];
     let baeCarts = [];
+    let childCarts = [];
 
     let cartsStore = [];
 
@@ -99,12 +100,16 @@ ipcMain.on('start', function (start) {
     let regularChannel = config.regularChannel;
     /* This is bae channel */
     let baeChannel = config.baeChannel;
+    /* This is channel for kid/toddler carts */
+    let childChannel = config.childChannel;
     /* Bot login token */
     let botToken = config.botToken;
     //check if user wants one cart per person;
     var quantityCart;
     //checks if user wants messages to stay in channel
     let deleteAfterReact = config.deleteAfterReact;
+    // check if user is running for kids/toddler sizes
+    let childSizes = config.childSizes;
     //checks if user wants 10 minute expiration
     let after10 = config.after10
     //cool down
@@ -221,7 +226,11 @@ ipcMain.on('start', function (start) {
                                 .setThumbnail(img);
 
                             Number(size);
-                            if (size < 7) {
+                            if (childSizes) {
+                              childCarts.push({
+                                 embed
+                              });
+                            } else if (size < 7) {
                               baeCarts.push({
                                 embed
                               });
@@ -406,7 +415,7 @@ ipcMain.on('start', function (start) {
                     }
                 })
             }
-            if (message.channel.id == regularChannel || message.channel.id == baeChannel) {
+            if (message.channel.id == regularChannel || message.channel.id == baeChannel || message.channel.id == childChannel) {
                 message.react('🛒')
             }
     }catch(err){
@@ -425,6 +434,12 @@ ipcMain.on('start', function (start) {
             console.log('Posting cart to bae channel...')
             guild.channels.get(baeChannel).send(
                 baeCarts.shift()
+            );
+
+        } else if (childCarts.length > 0) {
+            console.log('Posting cart to kids/toddler channel...')
+            guild.channels.get(childChannel).send(
+                childCarts.shift()
             );
 
         }
@@ -476,7 +491,7 @@ ipcMain.on('start', function (start) {
 
 
             /* console.log(reaction.message.id); */
-            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel) {
+            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel || reaction.message.channel.id == childChannel) {
                 //console.log('Reaction added; current count:', reaction.count);
                 if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
