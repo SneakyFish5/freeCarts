@@ -221,7 +221,7 @@ ipcMain.on('start', function (start) {
                                 .setThumbnail(img);
 
                             Number(size);
-                            if (size < 6.5) {
+                            if (size < 7) {
                               baeCarts.push({
                                 embed
                               });
