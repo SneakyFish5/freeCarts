@@ -455,7 +455,8 @@ ipcMain.on('start', function (start) {
                 return
             }
             //ttt
-            quantityCart = getUserLimit(user.id);
+            var UserID = Number(user.id);
+            quantityCart = getUserLimit(UserID);
             /* FOR 1 CART ONLY */
             let redeemingUser;
             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
