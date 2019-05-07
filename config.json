@@ -1,11 +1,1 @@
-{
-    "server": "Server ID / guild ID",
-    "privateChannel": "This is the ID of a hidden channel, normal members should NOT be able to see this",
-    "regularChannel": "This is the ID of a  public channel, 'everyone' SHOULD be able to see this",
-    "baeChannel": "Bae channel ID for carts",
-    "botToken": "Bot login token",
-    "quantityCart": 3,
-    "deleteAfterReact": false,
-    "after10": true,
-    "cooldown": 5
-}
+{"server":"571363093142044714","privateChannel":"571390999230939146","regularChannel":"571369794767552533","baeChannel":"574732914814746634","childChannel":"575438569058074625","botToken":"NTcxMzkxNzY2NDY5NTQxOTA4.XMNEXA.ADdHS_hf9cD3iPVXjR3z03QO4V0","quantityCart":3,"deleteAfterReact":false,"childSizes":true,"after10":false,"cooldown":5}

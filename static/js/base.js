@@ -4,11 +4,15 @@
   document.getElementById('private').value = config.privateChannel
   document.getElementById('regular').value = config.regularChannel
   document.getElementById('bae').value = config.baeChannel
+  document.getElementById('child').value = config.childChannel
   document.getElementById('bot').value = config.botToken
   document.getElementById('quantityCart').value = config.quantityCart
   document.getElementById('cooldown').value = config.cooldown
   if (config.deleteAfterReact) {
     document.getElementById('deleteAfterReact').checked = true
+  }
+  if (config.childSizes) {
+    document.getElementById('childSizes').checked = true
   }
   if (config.after10){
     document.getElementById('after10').checked =true
@@ -25,10 +29,12 @@ function stop() {
   document.getElementById('private').disabled = false;
   document.getElementById('regular').disabled = false;
   document.getElementById('bae').disabled = false;
+  document.getElementById('child').disabled = false;
   document.getElementById('bot').disabled = false;
   document.getElementById('quantityCart').disabled = false;
   document.getElementById('cooldown').disabled = true;
   document.getElementById('deleteAfterReact').disabled = false;
+  document.getElementById('childSizes').disabled = false;
   document.getElementById('after10').disabled = false
   document.getElementById('botsname').innerHTML = '';
   document.getElementById('name').innerHTML = '';
@@ -82,12 +88,14 @@ function save() {
   const private = document.querySelector('#private').value;
   const regular = document.querySelector('#regular').value;
   const bae = document.querySelector('#bae').value;
+  const child = document.querySelector('#child').value;
   const bot = document.querySelector('#bot').value;
   const quantityCart = document.getElementById('quantityCart').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
+  const childSizes = document.getElementById('childSizes').checked
   const after10 = document.getElementById('after10').checked
   const cooldown = document.getElementById('cooldown').value
-  config = `{"server":"${server}","privateChannel":"${private}","regularChannel":"${regular}","baeChannel":"${bae}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"after10":${after10},"cooldown":${cooldown}}`
+  config = `{"server":"${server}","privateChannel":"${private}","regularChannel":"${regular}","baeChannel":"${bae}","childChannel":"${child}","botToken":"${bot}","quantityCart":${quantityCart},"deleteAfterReact":${deleteAfterReact},"childSizes":${childSizes},"after10":${after10},"cooldown":${cooldown}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -98,9 +106,11 @@ function start() {
   document.getElementById('private').disabled = true
   document.getElementById('regular').disabled = true
   document.getElementById('bae').disabled = true
+  document.getElementById('child').disabled = true
   document.getElementById('bot').disabled = true
   document.getElementById('quantityCart').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
+  document.getElementById('childSizes').disabled = true
   document.getElementById('after10').disabled = true
   document.getElementById('cooldown').disabled = true
   ipcRenderer.send('start');
