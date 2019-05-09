@@ -79,6 +79,7 @@ ipcMain.on('start', function (start) {
     mainWindow.webContents.send('message', 'x');
     const config = require('./config.json');
     const limitConfig = require('./limits.json');
+    const elmo1SizeLimit = require('./presetlimits.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
     const fs = require('fs');
@@ -89,8 +90,29 @@ ipcMain.on('start', function (start) {
     let regularCarts = [];
     let baeCarts = [];
     let childCarts = [];
+    let elmo1Carts = [];
 
     let cartsStore = [];
+
+    let elmo1LimitCount = {
+      "4": 0,
+      "4.5": 0,
+      "5": 0,
+      "5.5": 0,
+      "6": 0,
+      "6.5": 0,
+      "7": 0,
+      "7.5": 0,
+      "8": 0,
+      "8.5": 0,
+      "9": 0,
+      "9.5": 0,
+      "10": 0,
+      "10.5": 0,
+      "11": 0,
+      "11.5": 0,
+      "12": 0
+    };
 
     /* Server/guild ID */
     let server = config.server;
@@ -100,6 +122,8 @@ ipcMain.on('start', function (start) {
     let regularChannel = config.regularChannel;
     /* This is bae channel */
     let baeChannel = config.baeChannel;
+    /* This is channel for elmo1 */
+    let elmo1Channel = config.elmo1Channel;
     /* This is channel for kid/toddler carts */
     let childChannel = config.childChannel;
     /* Bot login token */
@@ -225,16 +249,23 @@ ipcMain.on('start', function (start) {
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
 
+                            // create random number to decide whether to go to private or yearly user
+                            var channelRandom = Math.floor(Math.random() * 2) + 1;
                             Number(size);
-                            if (childSizes) {
+                            if (channelRandom == 1 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
+                              elmo1Carts.push({
+                                embed
+                              });
+                              elmo1LimitCount[size]++
+                            } else if (childSizes && channelRandom == 2) {
                               childCarts.push({
                                  embed
                               });
-                            } else if (size < 7) {
+                            } else if (size < 7 && channelRandom == 2) {
                               baeCarts.push({
                                 embed
                               });
-                            } else {
+                            } else if (channelRandom == 2) {
                              regularCarts.push({
                                 embed
                              });
@@ -415,7 +446,7 @@ ipcMain.on('start', function (start) {
                     }
                 })
             }
-            if (message.channel.id == regularChannel || message.channel.id == baeChannel || message.channel.id == childChannel) {
+            if (message.channel.id == regularChannel || message.channel.id == baeChannel || message.channel.id == childChannel || message.channel.id == elmo1Channel) {
                 message.react('🛒')
             }
     }catch(err){
@@ -442,9 +473,15 @@ ipcMain.on('start', function (start) {
                 childCarts.shift()
             );
 
+        } else if (elmo1Carts.length > 0) {
+            console.log('Posting cart to elmo1 channel...')
+            guild.channels.get(elmo1Channel).send(
+                elmo1Carts.shift()
+            );
+
         }
     }
-    setInterval(sendCarts, 2000)
+    setInterval(sendCarts, 500)
 
     /* FOR 1 CART ONLY */
     redeemed = []
@@ -491,7 +528,7 @@ ipcMain.on('start', function (start) {
 
 
             /* console.log(reaction.message.id); */
-            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel || reaction.message.channel.id == childChannel) {
+            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel || reaction.message.channel.id == childChannel || reaction.message.channel.id == elmo1Channel) {
                 //console.log('Reaction added; current count:', reaction.count);
                 if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
