@@ -560,7 +560,7 @@ ipcMain.on('start', function (start) {
                                         /* FOR N CART(s) */
 
                                         console.log(user.username + '#' + user.discriminator + ' redeemed cart #' +  cartsStore[i]['id'] )
-
+                                        console.log(`Email: ${cartsStore[i]['email']} Pass: ${cartsStore[i]['pass']}`);
                                         const embed = new Discord.RichEmbed()
                                             .setColor(0x00FF00)
                                             .setTimestamp()
