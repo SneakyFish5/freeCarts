@@ -79,6 +79,7 @@ ipcMain.on('start', function (start) {
     mainWindow.webContents.send('message', 'x');
     const config = require('./config.json');
     const limitConfig = require('./limits.json');
+    let stats = require('./stats.json');
     const elmo1SizeLimit = require('./presetlimits.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
@@ -275,7 +276,7 @@ ipcMain.on('start', function (start) {
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
                             mainWindow.webContents.send('cartsTotal', cartNum);
                             writeCart(cartNum, email, pass, loginURL, img, size, sku)
-
+                            saveStats(cartNum, redeemedTotal.length);
                         } else if (e.footer.text === 'Sole AIO Adidas Mode') {
                             size = (e.fields)[1]['value'];
                             email = (e.fields)[2]['value'];
@@ -500,6 +501,30 @@ ipcMain.on('start', function (start) {
       }
     }
 
+    function saveStats(currentTotalCarts, currentRedeemedCarts) {
+      let totalRedeemedCartsStat = stats.redeemedCarts + currentRedeemedCarts;
+      let totalCartsStat = stats.totalCarts + currentTotalCarts;
+      console.log(`redeemed: ${totalRedeemedCartsStat} total: ${totalCartsStat}`)
+      let statsToPush = {
+        "totalCarts": totalCartsStat,
+        "redeemedCarts": totalRedeemedCartsStat
+      }
+
+      try {
+        fs.writeFileSync('./stats.json', JSON.stringify(statsToPush));
+      } catch (err) {
+        console.log(err);
+      }
+
+
+      guild.channels.get("577331065862225920").setName(`Total Carts: ${totalCartsStat}`).then(updatedStat =>
+        console.log(`${updatedStat.name}`)
+      ).catch(console.error);
+      guild.channels.get("577331125400109066").setName(`Total Redeemed: ${totalRedeemedCartsStat}`).then(updatedStat =>
+        console.log(`${updatedStat.name}`)
+      ).catch(console.error);
+    }
+
     bot.on('messageReactionAdd', (reaction, user) => {
         //console.log(redeemed)
         if (reaction.message.author.bot) {
@@ -560,7 +585,7 @@ ipcMain.on('start', function (start) {
                                         /* FOR N CART(s) */
 
                                         console.log(user.username + '#' + user.discriminator + ' redeemed cart #' +  cartsStore[i]['id'] )
-
+                                        console.log(`Email: ${cartsStore[i]['email']} Pass: ${cartsStore[i]['pass']}`);
                                         const embed = new Discord.RichEmbed()
                                             .setColor(0x00FF00)
                                             .setTimestamp()

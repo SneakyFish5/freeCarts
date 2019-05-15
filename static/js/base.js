@@ -57,6 +57,9 @@ ipcRenderer.on('liveTotal', function (liveTotal, liveNum) {
 ipcRenderer.on('redeemedTotal', function (redeemedTotal, redeemedNum) {
   document.getElementById('redeemed').innerHTML = redeemedNum
 });
+ipcRenderer.on('elmo1Total', function (elmo1Total, elmo1Num) {
+  document.getElementById('elmo1total').innerHTML = elmo1Num
+});
 ipcRenderer.on('serverImg', function (serverImg, img) {
   document.getElementById("icon").src = img
 });
