@@ -258,7 +258,7 @@ ipcMain.on('start', function (start) {
                                 embed
                               });
                               elmo1LimitCount[size]++
-                            } else if (childSizes && channelRandom == 2) {
+                            } else if (childSizes) {
                               childCarts.push({
                                  embed
                               });
@@ -304,7 +304,7 @@ ipcMain.on('start', function (start) {
                                     embed
                                   });
                                   elmo1LimitCount[size]++
-                                } else if (childSizes && channelRandom == 2) {
+                                } else if (childSizes) {
                                   childCarts.push({
                                      embed
                                   });
