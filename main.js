@@ -510,7 +510,7 @@ ipcMain.on('start', function (start) {
     function getUserLimit(userid) {
       for (var limit in limitConfig) {
         if (limitConfig.hasOwnProperty(limit) && limit == userid) {
-          console.log(limit + " has a limit of " + limitConfig[limit]);
+          console.log(`${userid.username}#${user.discriminator} has a limit of ${limitConfig[limit]}`);
           return limitConfig[limit];
         }
       }
@@ -519,7 +519,7 @@ ipcMain.on('start', function (start) {
     function saveStats(currentTotalCarts, currentRedeemedCarts) {
       let totalRedeemedCartsStat = stats.redeemedCarts + currentRedeemedCarts;
       let totalCartsStat = stats.totalCarts + currentTotalCarts;
-      console.log(`redeemed: ${totalRedeemedCartsStat} total: ${totalCartsStat}`)
+      console.log(`Redeemed: ${totalRedeemedCartsStat} Total: ${totalCartsStat}`)
       let statsToPush = {
         "totalCarts": totalCartsStat,
         "redeemedCarts": totalRedeemedCartsStat
@@ -531,13 +531,11 @@ ipcMain.on('start', function (start) {
         console.log(err);
       }
 
+      let consoleTotalCarts, consoleRedeemedCarts;
 
-      guild.channels.get("577331065862225920").setName(`Total Carts: ${totalCartsStat}`).then(updatedStat =>
-        console.log(`${updatedStat.name}`)
-      ).catch(console.error);
-      guild.channels.get("577331125400109066").setName(`Total Redeemed: ${totalRedeemedCartsStat}`).then(updatedStat =>
-        console.log(`${updatedStat.name}`)
-      ).catch(console.error);
+      guild.channels.get("577331065862225920").setName(`Total Carts: ${totalCartsStat}`).then(updatedTotalCarts => )
+      .then(guild.channels.get("577331125400109066").setName(`Total Redeemed: ${totalRedeemedCartsStat}`)).then(updateRedeemedCarts => )
+      .catch(console.error);
     }
 
     bot.on('messageReactionAdd', (reaction, user) => {
@@ -599,6 +597,7 @@ ipcMain.on('start', function (start) {
 
                                         /* FOR N CART(s) */
 
+                                        console.log(`Size: ${cartsStore[i]['size']}`);
                                         console.log(user.username + '#' + user.discriminator + ' redeemed cart #' +  cartsStore[i]['id'] )
                                         console.log(`Email: ${cartsStore[i]['email']} Pass: ${cartsStore[i]['pass']}`);
                                         const embed = new Discord.RichEmbed()
