@@ -510,7 +510,7 @@ ipcMain.on('start', function (start) {
     function getUserLimit(userid) {
       for (var limit in limitConfig) {
         if (limitConfig.hasOwnProperty(limit) && limit == userid) {
-          console.log(`${userid.username}#${user.discriminator} has a limit of ${limitConfig[limit]}`);
+          console.log(`${userid.username}#${userid.discriminator} has a limit of ${limitConfig[limit]}`);
           return limitConfig[limit];
         }
       }
