@@ -533,9 +533,8 @@ ipcMain.on('start', function (start) {
 
       let consoleTotalCarts, consoleRedeemedCarts;
 
-      guild.channels.get("577331065862225920").setName(`Total Carts: ${totalCartsStat}`).then(updatedTotalCarts => )
-      .then(guild.channels.get("577331125400109066").setName(`Total Redeemed: ${totalRedeemedCartsStat}`)).then(updateRedeemedCarts => )
-      .catch(console.error);
+      guild.channels.get("577331065862225920").setName(`Total Carts: ${totalCartsStat}`).then().catch(console.error);
+      guild.channels.get("577331125400109066").setName(`Total Redeemed: ${totalRedeemedCartsStat}`).catch(console.error);
     }
 
     bot.on('messageReactionAdd', (reaction, user) => {
@@ -597,6 +596,7 @@ ipcMain.on('start', function (start) {
 
                                         /* FOR N CART(s) */
 
+                                        console.log(`------------------------`);
                                         console.log(`Size: ${cartsStore[i]['size']}`);
                                         console.log(user.username + '#' + user.discriminator + ' redeemed cart #' +  cartsStore[i]['id'] )
                                         console.log(`Email: ${cartsStore[i]['email']} Pass: ${cartsStore[i]['pass']}`);
