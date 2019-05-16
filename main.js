@@ -251,7 +251,12 @@ ipcMain.on('start', function (start) {
                                 .setThumbnail(img);
 
                             // create random number to decide whether to go to private or yearly user
-                            var channelRandom = Math.floor(Math.random() * 2) + 1;
+                            let sendToElmo1 = true;
+                            if(sendToElmo1) {
+                              var channelRandom = Math.floor(Math.random() * 2) + 1;
+                            } else {
+                              var channelRandom = 2;
+                            }
                             Number(size);
                             if (channelRandom == 1 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
                               elmo1Carts.push({
