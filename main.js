@@ -351,20 +351,34 @@ ipcMain.on('start', function (start) {
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
 
-                            if (size < 6.5) {
-                              baeCarts.push({
-                                embed
-                              });
-                            } else {
-                             regularCarts.push({
-                                embed
-                             });
-                            }
+                                // create random number to decide whether to go to private or yearly user
+                                var channelRandom = Math.floor(Math.random() * 2) + 1;
+                                Number(size);
+                                if (channelRandom == 1 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
+                                  elmo1Carts.push({
+                                    embed
+                                  });
+                                  elmo1LimitCount[size]++
+                                } else if (childSizes) {
+                                  childCarts.push({
+                                     embed
+                                  });
+                                } else if (size < 7 && channelRandom == 2) {
+                                  baeCarts.push({
+                                    embed
+                                  });
+                                } else if (channelRandom == 2) {
+                                 regularCarts.push({
+                                    embed
+                                 });
+                                }
+
                             liveTotal = cartNum - redeemedTotal.length;
-                            mainWindow.webContents.send('liveTotal', liveTotal);
+                            mainWindow.webContents.send('liveTotal', liveTotal);;
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
                             mainWindow.webContents.send('cartsTotal', cartNum);
                             writeCart(cartNum, email, pass, loginURL, img, size, sku)
+                            saveStats(cartNum, redeemedTotal.length)
                         }
                             else if (e.footer.text === 'Phantom') {
                                 size = (e.fields)[1]['value']
