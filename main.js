@@ -526,10 +526,10 @@ ipcMain.on('start', function (start) {
     //cart cooldown
     let cooldownSeconds = cooldown*1000
 
-    function getUserLimit(userid) {
+    function getUserLimit(userid, user) {
       for (var limit in limitConfig) {
         if (limitConfig.hasOwnProperty(limit) && limit == userid) {
-          console.log(`${userid.username}#${userid.discriminator} has a limit of ${limitConfig[limit]}`);
+          console.log(`${user.username}#${user.discriminator} has a limit of ${limitConfig[limit]}`);
           return limitConfig[limit];
         }
       }
@@ -564,7 +564,7 @@ ipcMain.on('start', function (start) {
             }
             //ttt
             var UserID = Number(user.id);
-            quantityCart = getUserLimit(UserID);
+            quantityCart = getUserLimit(UserID, user);
             /* FOR 1 CART ONLY */
             let redeemingUser;
             if ((redeemingUser = redeemed.find(element => element.userid == user.id))) {
