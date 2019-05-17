@@ -313,11 +313,11 @@ ipcMain.on('start', function (start) {
                                   childCarts.push({
                                      embed
                                   });
-                                } else if (size < 7 && channelRandom == 2) {
+                                } else if (size < 7) {
                                   baeCarts.push({
                                     embed
                                   });
-                                } else if (channelRandom == 2) {
+                                } else {
                                  regularCarts.push({
                                     embed
                                  });
@@ -363,11 +363,11 @@ ipcMain.on('start', function (start) {
                                   childCarts.push({
                                      embed
                                   });
-                                } else if (size < 7 && channelRandom == 2) {
+                                } else if (size < 7) {
                                   baeCarts.push({
                                     embed
                                   });
-                                } else if (channelRandom == 2) {
+                                } else {
                                  regularCarts.push({
                                     embed
                                  });
