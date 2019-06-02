@@ -304,35 +304,36 @@ ipcMain.on('start', function (start) {
                                 embed
                               });
                               fnfLimitCount[size]++
-                              channelDecision++
                             } else if (channelDecision == 2 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
                               elmo1Carts.push({
                                 embed
                               });
                               elmo1LimitCount[size]++
-                              channelDecision++
                             } else if (channelDecision == 3 && elmo2LimitCount[size] < elmo2SizeLimit[size]) {
                               elmo2Carts.push({
                                 embed
                               });
                               elmo2LimitCount[size]++
-                              channelDecision++
                             } else if (childSizes) {
                               childCarts.push({
                                  embed
                               });
-                              channelDecision++
                             } else if (size < 7) {
                               baeCarts.push({
                                 embed
                               });
-                              channelDecision++
                             } else {
                              regularCarts.push({
                                 embed
                              });
-                              channelDecision++
                             }
+                            
+                            if (channelDecision < 4) {
+                              channelDecision++
+                            } else {
+                              channelDecision = 1
+                            }
+                          
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -357,28 +358,40 @@ ipcMain.on('start', function (start) {
                                 .setDescription(`Size: ${size} \nSKU: ${sku}`)
                                 .setFooter(`Cart: # ${cartNum} • Made by Jalfrazi`, 'https://pbs.twimg.com/profile_images/1088110085912649729/usJQewZx_400x400.jpg')
                                 .setThumbnail(img);
-
-                                // create random number to decide whether to go to private or yearly user
-                                var channelRandom = Math.floor(Math.random() * 2) + 1;
-                                Number(size);
-                                if (channelRandom == 1 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
-                                  elmo1Carts.push({
-                                    embed
-                                  });
-                                  elmo1LimitCount[size]++
-                                } else if (childSizes) {
-                                  childCarts.push({
-                                     embed
-                                  });
-                                } else if (size < 7) {
-                                  baeCarts.push({
-                                    embed
-                                  });
-                                } else {
-                                 regularCarts.push({
-                                    embed
-                                 });
-                                }
+                            Number(size);
+                            if (channelDecision == 1 && fnfLimitCount[size] < fnfSizeLimit[size]) {
+                              fnfCarts.push({
+                                embed
+                              });
+                              fnfLimitCount[size]++
+                            } else if (channelDecision == 2 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
+                              elmo1Carts.push({
+                                embed
+                              });
+                              elmo1LimitCount[size]++
+                            } else if (channelDecision == 3 && elmo2LimitCount[size] < elmo2SizeLimit[size]) {
+                              elmo2Carts.push({
+                                embed
+                              });
+                              elmo2LimitCount[size]++
+                            } else if (childSizes) {
+                              childCarts.push({
+                                 embed
+                              });
+                            } else if (size < 7) {
+                              baeCarts.push({
+                                embed
+                              });
+                            } else {
+                             regularCarts.push({
+                                embed
+                             });
+                            }
+                            
+                            if (channelDecision < 4) {
+                              channelDecision++
+                            } else {
+                              channelDecision = 1
 
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
