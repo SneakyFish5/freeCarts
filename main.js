@@ -81,8 +81,8 @@ ipcMain.on('start', function (start) {
     const limitConfig = require('./limits.json');
     let stats = require('./stats.json');
     const elmo1SizeLimit = require('./presetlimits.json');
-    const elmo2SizeLimit = require('filehere');
-    const fnfSizeLimit = require('filehere');
+    const elmo2SizeLimit = require('./Locked2.json');
+    const fnfSizeLimit = require('./FnFlimits.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
     const fs = require('fs');
