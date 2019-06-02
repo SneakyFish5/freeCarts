@@ -5,6 +5,8 @@
   document.getElementById('regular').value = config.regularChannel
   document.getElementById('bae').value = config.baeChannel
   document.getElementById('elmo1').value = config.elmo1Channel
+  document.getElementById('elmo2').value = config.elmo2Channel
+  document.getElementById('fnf').value = config.fnfChannel
   document.getElementById('child').value = config.childChannel
   document.getElementById('bot').value = config.botToken
   document.getElementById('cooldown').value = config.cooldown
@@ -30,6 +32,8 @@ function stop() {
   document.getElementById('regular').disabled = false;
   document.getElementById('bae').disabled = false;
   document.getElementById('elmo1').disabled = false;
+  document.getElementById('elmo2').disabled = false;
+  document.getElementById('fnf').disabled = false;
   document.getElementById('child').disabled = false;
   document.getElementById('bot').disabled = false;
   document.getElementById('cooldown').disabled = true;
@@ -89,13 +93,15 @@ function save() {
   const regular = document.querySelector('#regular').value;
   const bae = document.querySelector('#bae').value;
   const elmo1 = document.querySelector('#elmo1').value;
+  const elmo1 = document.querySelector('#elmo2').value;
+  const elmo1 = document.querySelector('#fnf').value;
   const child = document.querySelector('#child').value;
   const bot = document.querySelector('#bot').value;
   const deleteAfterReact = document.getElementById('deleteAfterReact').checked
   const childSizes = document.getElementById('childSizes').checked
   const after10 = document.getElementById('after10').checked
   const cooldown = document.getElementById('cooldown').value
-  config = `{"server":"${server}","privateChannel":"${private}","regularChannel":"${regular}","baeChannel":"${bae}","childChannel":"${child}","elmo1Channel":"${elmo1}","botToken":"${bot}","deleteAfterReact":${deleteAfterReact},"childSizes":${childSizes},"after10":${after10},"cooldown":${cooldown}}`
+  config = `{"server":"${server}","privateChannel":"${private}","regularChannel":"${regular}","baeChannel":"${bae}","childChannel":"${child}","elmo1Channel":"${elmo1}","elmo2Channel":"${elmo2}","fnfChannel":"${fnf}","botToken":"${bot}","deleteAfterReact":${deleteAfterReact},"childSizes":${childSizes},"after10":${after10},"cooldown":${cooldown}}`
   console.log(config)
   ipcRenderer.send('configSave', config);
 }
@@ -107,6 +113,8 @@ function start() {
   document.getElementById('regular').disabled = true
   document.getElementById('bae').disabled = true
   document.getElementById('elmo1').disabled = true
+  document.getElementById('elmo2').disabled = true
+  document.getElementById('fnf').disabled = true
   document.getElementById('child').disabled = true
   document.getElementById('bot').disabled = true
   document.getElementById('deleteAfterReact').disabled = true
