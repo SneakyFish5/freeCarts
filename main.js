@@ -392,6 +392,7 @@ ipcMain.on('start', function (start) {
                               channelDecision++
                             } else {
                               channelDecision = 1
+                            }
 
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
@@ -449,8 +450,7 @@ ipcMain.on('start', function (start) {
                             mainWindow.webContents.send('cartsTotal', cartNum);
                             writeCart(cartNum, email, pass, loginURL, img, size, sku)
                             saveStats(cartNum, redeemedTotal.length)
-                        }
-                            else if (e.footer.text === 'Phantom') {
+                        } else if (e.footer.text === 'Phantom') {
                                 size = (e.fields)[1]['value']
                                 userPass = (e.fields)[4]['value']
                                 email = (userPass).split(':')[0]
