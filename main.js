@@ -43,23 +43,6 @@ app.on('ready', function () {
     }));
 });
 
-
-//check version
-ipcMain.on('checkVersion',function () {
-    let request = require('request');
-    request('https://raw.githubusercontent.com/fraserdale/freeCarts/master/package.json', function (error, response, body) {
-        let jsonBody = JSON.parse(body);
-        let currentVersion = require('./package.json');
-        if(currentVersion.version !== jsonBody["version"]){
-            console.log('You are NOT on the correct version');
-            mainWindow.webContents.send('wrongVersion', jsonBody['update']);
-        }else{
-            console.log('On latest version.')
-        }
-    });
-});
-
-
 //catch save
 ipcMain.on('configSave', function (e, config) {
     fs.writeFile('config.json', config, (err) => {
