@@ -634,7 +634,7 @@ ipcMain.on('start', function (start) {
                 fnfCarts.shift()
             );
 
-        } else if (elmo3.length > 0) {
+        } else if (elmo3Carts.length > 0) {
             console.log('Posting cart to elmo3 channel...')
             guild.channels.get(elmo3Channel).send(
                 elmo3Carts.shift()
