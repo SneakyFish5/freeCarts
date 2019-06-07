@@ -66,6 +66,7 @@ ipcMain.on('start', function (start) {
     const elmo1SizeLimit = require('./presetlimits.json');
     const elmo2SizeLimit = require('./Locked2.json');
     const fnfSizeLimit = require('./FnFlimits.json');
+    const elmo3Limit = require('./filename.json');
     const Discord = require('discord.js');
     const bot = new Discord.Client();
     const fs = require('fs');
@@ -78,6 +79,7 @@ ipcMain.on('start', function (start) {
     let childCarts = [];
     let elmo1Carts = [];
     let elmo2Carts = [];
+    let elmo3Carts = [];
     let fnfCarts = [];
     let channelDecision = 1;
 
@@ -102,7 +104,7 @@ ipcMain.on('start', function (start) {
       "11.5": 0,
       "12": 0
     };
-    
+
     let fnfLimitCount = {
       "4": 0,
       "4.5": 0,
@@ -122,8 +124,28 @@ ipcMain.on('start', function (start) {
       "11.5": 0,
       "12": 0
     };
-    
+
     let elmo2LimitCount = {
+      "4": 0,
+      "4.5": 0,
+      "5": 0,
+      "5.5": 0,
+      "6": 0,
+      "6.5": 0,
+      "7": 0,
+      "7.5": 0,
+      "8": 0,
+      "8.5": 0,
+      "9": 0,
+      "9.5": 0,
+      "10": 0,
+      "10.5": 0,
+      "11": 0,
+      "11.5": 0,
+      "12": 0
+    };
+
+    let elmo3LimitCount = {
       "4": 0,
       "4.5": 0,
       "5": 0,
@@ -153,9 +175,11 @@ ipcMain.on('start', function (start) {
     let baeChannel = config.baeChannel;
     /* This is channel for elmo1 */
     let elmo1Channel = config.elmo1Channel;
-    /* This is channel for elmo1 */
+    /* This is channel for elmo2 */
     let elmo2Channel = config.elmo2Channel;
-    /* This is channel for elmo1 */
+    /* This is channel for elmo3 */
+    let elmo3Channel = config.elmo3Channel;
+    /* This is channel for fnf */
     let fnfChannel = config.fnfChannel;
     /* This is channel for kid/toddler carts */
     let childChannel = config.childChannel;
@@ -297,6 +321,11 @@ ipcMain.on('start', function (start) {
                                 embed
                               });
                               elmo2LimitCount[size]++
+                            } else if (channelDecision == 4 && elmo3LimitCount[size] < elmo3SizeLimit[size]) {
+                              elmo3Carts.push({
+                                embed
+                              });
+                              elmo3LimitCount[size]++
                             } else if (childSizes) {
                               childCarts.push({
                                  embed
@@ -310,13 +339,13 @@ ipcMain.on('start', function (start) {
                                 embed
                              });
                             }
-                            
-                            if (channelDecision < 4) {
+
+                            if (channelDecision < 5) {
                               channelDecision++
                             } else {
                               channelDecision = 1
                             }
-                          
+
                             liveTotal = cartNum - redeemedTotal.length;
                             mainWindow.webContents.send('liveTotal', liveTotal);;
                             mainWindow.webContents.send('redeemedTotal', redeemedTotal.length);
@@ -357,6 +386,11 @@ ipcMain.on('start', function (start) {
                                 embed
                               });
                               elmo2LimitCount[size]++
+                            } else if (channelDecision == 4 && elmo3LimitCount[size] < elmo3SizeLimit[size]) {
+                              elmo3Carts.push({
+                                embed
+                              });
+                              elmo3LimitCount[size]++
                             } else if (childSizes) {
                               childCarts.push({
                                  embed
@@ -370,8 +404,8 @@ ipcMain.on('start', function (start) {
                                 embed
                              });
                             }
-                            
-                            if (channelDecision < 4) {
+
+                            if (channelDecision < 5) {
                               channelDecision++
                             } else {
                               channelDecision = 1
@@ -408,11 +442,26 @@ ipcMain.on('start', function (start) {
                                 // create random number to decide whether to go to private or yearly user
                                 var channelRandom = Math.floor(Math.random() * 2) + 1;
                                 Number(size);
-                                if (channelRandom == 1 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
+                                if (channelDecision == 1 && fnfLimitCount[size] < fnfSizeLimit[size]) {
+                                  fnfCarts.push({
+                                    embed
+                                  });
+                                  fnfLimitCount[size]++
+                                } else if (channelDecision == 2 && elmo1LimitCount[size] < elmo1SizeLimit[size]) {
                                   elmo1Carts.push({
                                     embed
                                   });
                                   elmo1LimitCount[size]++
+                                } else if (channelDecision == 3 && elmo2LimitCount[size] < elmo2SizeLimit[size]) {
+                                  elmo2Carts.push({
+                                    embed
+                                  });
+                                  elmo2LimitCount[size]++
+                                } else if (channelDecision == 4 && elmo3LimitCount[size] < elmo3SizeLimit[size]) {
+                                  elmo3Carts.push({
+                                    embed
+                                  });
+                                  elmo3LimitCount[size]++
                                 } else if (childSizes) {
                                   childCarts.push({
                                      embed
@@ -425,6 +474,12 @@ ipcMain.on('start', function (start) {
                                  regularCarts.push({
                                     embed
                                  });
+                                }
+
+                                if (channelDecision < 5) {
+                                  channelDecision++
+                                } else {
+                                  channelDecision = 1
                                 }
 
                             liveTotal = cartNum - redeemedTotal.length;
@@ -534,7 +589,7 @@ ipcMain.on('start', function (start) {
                     }
                 })
             }
-            if (message.channel.id == regularChannel || message.channel.id == baeChannel || message.channel.id == childChannel || message.channel.id == elmo1Channel || message.channel.id == elmo2Channel || message.channel.id == fnfChannel) {
+            if (message.channel.id == regularChannel || message.channel.id == baeChannel || message.channel.id == childChannel || message.channel.id == elmo1Channel || message.channel.id == elmo2Channel || message.channel.id == fnfChannel || message.channel.id == elmo3Channel) {
                 message.react('🛒')
             }
     }catch(err){
@@ -577,6 +632,12 @@ ipcMain.on('start', function (start) {
             console.log('Posting cart to fnf channel...')
             guild.channels.get(fnfChannel).send(
                 fnfCarts.shift()
+            );
+
+        } else if (elmo3.length > 0) {
+            console.log('Posting cart to elmo3 channel...')
+            guild.channels.get(elmo3Channel).send(
+                elmo3Carts.shift()
             );
 
         }
@@ -649,7 +710,7 @@ ipcMain.on('start', function (start) {
 
 
             /* console.log(reaction.message.id); */
-            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel || reaction.message.channel.id == childChannel || reaction.message.channel.id == elmo1Channel || reaction.message.channel.id == elmo2Channel || reaction.message.channel.id == fnfChannel) {
+            if (reaction.message.channel.id == regularChannel || reaction.message.channel.id == baeChannel || reaction.message.channel.id == childChannel || reaction.message.channel.id == elmo1Channel || reaction.message.channel.id == elmo2Channel || reaction.message.channel.id == fnfChannel || reaction.message.channel.id == elmo3Channel) {
                 //console.log('Reaction added; current count:', reaction.count);
                 if (reaction.count == 2) {
                     (reaction.users).forEach(element => {
